@@ -1,0 +1,28 @@
+{
+  "name": "audio",
+  "version": "0.0.1",
+  "description": "Music for testing should not be included in source control",
+  "main": "main.js",
+  "dependencies": {},
+  "devDependencies": {
+    "browser-sync": "^2.26.3",
+    "gulp": "^4.0.0",
+    "typescript": "^3.3.3333"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/irysius/audio.git"
+  },
+  "keywords": [
+    "audio"
+  ],
+  "author": "Lester Sy",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/irysius/audio/issues"
+  },
+  "homepage": "https://github.com/irysius/audio#readme"
+}
