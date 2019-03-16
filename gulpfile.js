@@ -33,4 +33,10 @@ gulp.task('compile', function (done) {
 
 gulp.task('serve', gulp.series('compile', serve, watch));
 
+gulp.task('setup', function () {
+	return gulp.src([
+		'node_modules/requirejs/require.js'
+	]).pipe(gulp.dest('lib'));
+});
+
 gulp.task('default', gulp.series('serve'));

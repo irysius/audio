@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "Music for testing should not be included in source control",
   "main": "main.js",
-  "dependencies": {},
+  "dependencies": {
+    "requirejs": "^2.3.6"
+  },
   "devDependencies": {
     "browser-sync": "^2.26.3",
     "gulp": "^4.0.0",
