@@ -1,15 +1,15 @@
 import { clamp } from './helpers';
 
-export interface IAudioPlayer {
+export interface IBasicAudioPlayer {
 	play(): Promise<void>;
 	stop(): void;
-	volume(): number;
-	volume(value: number): void;
 	suspend(): Promise<void>;
 	resume(): Promise<void>;
+	volume(): number;
+	volume(value: number): void;
 }
 
-function AudioPlayer(ac: AudioContext, buffer: AudioBuffer): IAudioPlayer {
+export function BasicAudioPlayer(ac: AudioContext, buffer: AudioBuffer): IBasicAudioPlayer {
 	let source: AudioBufferSourceNode;
 	let gainNode: GainNode;
 	let _volume: number = 1.0;
@@ -51,20 +51,6 @@ function AudioPlayer(ac: AudioContext, buffer: AudioBuffer): IAudioPlayer {
 	}
 
 	return {
-		volume, play, stop,
-		suspend, resume
+		volume, play, stop, suspend, resume
 	};
 }
-
-export function create(url: string): Promise<IAudioPlayer> {
-	return fetch(url).then(response => {	
-		return response.arrayBuffer();
-	}).then(buffer => {
-		let ac = new AudioContext();
-		(<any>window).ac = ac;
-		return ac.decodeAudioData(buffer).then(data => {
-			return AudioPlayer(ac, data);
-		});
-	});
-}
-
