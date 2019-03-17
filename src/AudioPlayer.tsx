@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AudioChannels, IAudioChannels } from './AudioChannels';
+import { AudioChannels, IAudioChannels } from './Channels';
 import { Skips, ISkips } from './Skips';
 import { IInterval, Interval } from './Section';
 import { Repeat, IRepeat } from './Repeat';
@@ -12,7 +12,7 @@ interface State {
 	volumes: number[];
 }
 
-export class ChannelAudio extends React.Component<Props, State> {
+export class AudioPlayer extends React.Component<Props, State> {
 	audioElement: React.RefObject<HTMLAudioElement>;
 	channels: IAudioChannels;
 	skips: ISkips;
