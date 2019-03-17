@@ -1,8 +1,12 @@
 import * as React from 'react';
 import { AudioChannels, IAudioChannels } from './AudioChannels';
+import { Skips, ISkips } from './Skips';
+import { IInterval, Interval } from './Section';
+import { Repeat, IRepeat } from './Repeat';
 
 interface Props {
 	src: string;
+	skips?: IInterval[];
 }
 interface State {
 	volumes: number[];
@@ -11,6 +15,8 @@ interface State {
 export class ChannelAudio extends React.Component<Props, State> {
 	audioElement: React.RefObject<HTMLAudioElement>;
 	channels: IAudioChannels;
+	skips: ISkips;
+	repeat: IRepeat;
 	constructor(props) {
 		super(props);
 		this.audioElement = React.createRef();
@@ -20,9 +26,28 @@ export class ChannelAudio extends React.Component<Props, State> {
 	}
 	componentDidMount() {
 		this.channels = AudioChannels(this.audioElement.current);
+		this.skips = Skips(this.audioElement.current);
+		// let r = Interval(60.50, 82.00); // puppet ... pawn 1st time
+		this.repeat = Repeat(this.audioElement.current, null);
+		// Note: this.audioElement.current contains all the 
+		// necessary calls present in the default controls, such as:
+		// .play()
+		// .pause()
+		// .currentTime
+		// .loop
+		// .volume
+
+		let { skips: propSkips } = this.props;
+
+		this.skips.set(propSkips);
+		
 		this.setState({
 			volumes: this.channels.volume()
 		});
+	}
+	componentWillUnmount() {
+		this.skips.cleanup();
+		this.repeat.cleanup();
 	}
 
 	changeVolume = (index: number) => {
