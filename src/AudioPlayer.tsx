@@ -65,6 +65,7 @@ export class AudioPlayer extends React.Component<Props, State> {
 		let { volumes } = this.state;
 		let volumeInputs = volumes.map((volume, index) => {
 			return <div key={index}>
+				<span>Channel #{index} volume: </span>
 				<input type="range" value={volume} min={0.0} max={1.0} step={0.01} onChange={this.changeVolume(index)}/>
 			</div>;
 		});
