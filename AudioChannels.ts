@@ -1,6 +1,7 @@
 import { repeat, clamp } from './helpers';
 
-export interface IChannelAudioPlayer {
+export interface IAudioChannels {
+	volume(): number[];
 	volume(channelIndex: number): number;
 	volume(channelIndex: number, value: number): void;
 }
@@ -10,7 +11,8 @@ interface IChannel {
 	volume: number;
 }
 
-export function ChannelAudioPlayer(ac: AudioContext, audioElement: HTMLAudioElement): IChannelAudioPlayer {
+export function AudioChannels(audioElement: HTMLAudioElement): IAudioChannels {
+	let ac = new AudioContext();
 	let source = ac.createMediaElementSource(audioElement);
 	
 	let channels: IChannel[] = [];
@@ -36,16 +38,20 @@ export function ChannelAudioPlayer(ac: AudioContext, audioElement: HTMLAudioElem
 
 	merger.connect(ac.destination);
 
-	function volume(channelIndex: number, value?: number) {
-		channelIndex = channelClamp(channelIndex);
-		if (typeof value === 'number') {
-			value = clamp(0.0, 1.0)(value);
-			channels[channelIndex].volume = value;
-			if (channels[channelIndex].gainNode) {
-				channels[channelIndex].gainNode.gain.value = value;
+	function volume(channelIndex?: number, value?: number): any {
+		if (typeof channelIndex === 'number') {
+			channelIndex = channelClamp(channelIndex);
+			if (typeof value === 'number') {
+				value = clamp(0.0, 1.0)(value);
+				channels[channelIndex].volume = value;
+				if (channels[channelIndex].gainNode) {
+					channels[channelIndex].gainNode.gain.value = value;
+				}
+			} else {
+				return channels[channelIndex].volume;
 			}
 		} else {
-			return channels[channelIndex].volume;
+			return channels.map(channel => channel.volume);
 		}
 	}
 

@@ -5,10 +5,19 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Audio Tests</title>
+	<script>
+		var require = {
+			paths: {
+				"react": "lib/react.development",
+				"react-dom": "lib/react-dom.development"
+			}
+		};
+	</script>
 	<script src="lib/require.js" data-main="main.js"></script>
 </head>
 <body>
 	<p>Tests</p>
-	<audio id="audio-node" src="sample.mp3" controls></audio>
+	<!-- <audio id="audio-node" src="sample.mp3" controls></audio> -->
+	<div id="mount"></div>
 </body>
 </html>

@@ -4,9 +4,13 @@
   "description": "Music for testing should not be included in source control",
   "main": "main.js",
   "dependencies": {
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4",
     "requirejs": "^2.3.6"
   },
   "devDependencies": {
+    "@types/react": "^16.8.8",
+    "@types/react-dom": "^16.8.2",
     "browser-sync": "^2.26.3",
     "gulp": "^4.0.0",
     "typescript": "^3.3.3333"

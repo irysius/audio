@@ -19,6 +19,7 @@ function serve(done) {
 function watch() {
 	gulp.watch([
 		'**/*.ts',
+		'**/*.tsx',
 		'index.html'
 	], gulp.series('compile', reload))
 }
@@ -35,7 +36,9 @@ gulp.task('serve', gulp.series('compile', serve, watch));
 
 gulp.task('setup', function () {
 	return gulp.src([
-		'node_modules/requirejs/require.js'
+		'node_modules/requirejs/require.js',
+		'node_modules/react/umd/react.development.js',
+		'node_modules/react-dom/umd/react-dom.development.js'
 	]).pipe(gulp.dest('lib'));
 });
 
