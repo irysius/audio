@@ -20,11 +20,25 @@ export class AudioPlayer extends React.Component<Props, State> {
 	constructor(props) {
 		super(props);
 		this.audioElement = React.createRef();
+		
 		this.state = {
 			volumes: []
 		};
 	}
 	componentDidMount() {
+		document.addEventListener('click', this.waitForInteraction);
+	}
+	componentWillUnmount() {
+		this.skips.cleanup();
+		this.repeat.cleanup();
+	}
+
+	waitForInteraction = () => {
+		document.removeEventListener('click', this.waitForInteraction);
+		this.setup();
+	}
+
+	setup = () => {
 		this.channels = AudioChannels(this.audioElement.current);
 		this.skips = Skips(this.audioElement.current);
 		// let r = Interval(60.50, 82.00); // puppet ... pawn 1st time
@@ -45,10 +59,6 @@ export class AudioPlayer extends React.Component<Props, State> {
 			volumes: this.channels.volume()
 		});
 	}
-	componentWillUnmount() {
-		this.skips.cleanup();
-		this.repeat.cleanup();
-	}
 
 	changeVolume = (index: number) => {
 		return (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,6 +72,7 @@ export class AudioPlayer extends React.Component<Props, State> {
 
 	render() {
 		let { src } = this.props;
+		console.log(src);
 		let { volumes } = this.state;
 		let volumeInputs = volumes.map((volume, index) => {
 			return <div key={index}>

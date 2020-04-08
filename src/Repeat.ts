@@ -25,3 +25,4 @@ export function Repeat(audioElement: HTMLAudioElement, interval: IInterval) {
 		cleanup
 	};
 }
+
