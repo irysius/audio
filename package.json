@@ -11,7 +11,7 @@
   "devDependencies": {
     "@types/react": "^16.8.8",
     "@types/react-dom": "^16.8.2",
-    "browser-sync": "^2.26.3",
+    "browser-sync": "^2.29.1",
     "gulp": "^4.0.0",
     "typescript": "^3.3.3333"
   },
